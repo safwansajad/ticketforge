@@ -7,6 +7,10 @@ exports.getAllAirlines = async (req, res) => {
   try {
     const airlines = await Airline.find().sort({ name: 1 })
 
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+    res.setHeader('Pragma', 'no-cache')
+    res.setHeader('Expires', '0')
+    
     res.json({
       success: true,
       data: airlines
