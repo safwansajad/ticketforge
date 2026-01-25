@@ -55,8 +55,14 @@ exports.getTicketByPNR = async (req, res) => {
     const agencyId = req.user.agencyId;
 
     const ticket = await Ticket.findOne({ pnr, agency: agencyId })
-      .populate('agency')
-      .populate('airline')
+      .populate({
+        path: 'agency',
+        select: 'name email phone address logoUrl footerNote'
+      })
+      .populate({
+        path: 'airline',
+        select: 'name code logoUrl'
+      })
 
     if (!ticket) {
       return res.status(404).json({
