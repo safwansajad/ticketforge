@@ -34,10 +34,11 @@ export default function CreateTicket() {
     const fetchAirlines = async () => {
       try {
         const response = await getAllAirlines()
-        setAirlines(response.data)
+        console.log('Loaded airlines:', response)
+        setAirlines(response)
         // Auto-select first airline if available
-        if (response.data.length > 0) {
-          setSelectedAirline(response.data[0]._id)
+        if (response.length > 0) {
+          setSelectedAirline(response[0]._id)
         }
       } catch (error) {
         console.error('Failed to fetch airlines:', error)

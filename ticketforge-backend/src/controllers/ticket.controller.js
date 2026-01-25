@@ -112,6 +112,7 @@ exports.downloadTicketPDF = async (req, res) => {
 
     res.send(pdf)
   } catch (error) {
+    console.error('DOWNLOAD PDF ERROR:', error)
     res.status(500).json({
       success: false,
       message: error.message

@@ -8,10 +8,11 @@ const API = axios.create({
 
 export const getAllAirlines = async () => {
   const response = await API.get('/airlines')
-  return response.data
+  // Backend returns { success: true, data: [...] }
+  return response.data?.data || []
 }
 
 export const getAirlineById = async (id) => {
   const response = await API.get(`/airlines/${id}`)
-  return response.data
+  return response.data?.data
 }
