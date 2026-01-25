@@ -3,6 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 
+const BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/$/, '');
+
 export default function Login() {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
@@ -26,7 +28,7 @@ export default function Login() {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', formData);
+      const response = await axios.post(`${BASE_URL}/api/auth/login`, formData);
 
       if (response.data.success) {
         login(response.data.token, response.data.agency);

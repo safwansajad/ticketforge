@@ -8,7 +8,7 @@ React + Vite client for ticket issuance and PNR vouchers.
 
 ## Setup
 1) Install deps: npm install
-2) Create .env with VITE_API_BASE_URL=http://localhost:5000
+2) Create .env with VITE_API_URL=https://ticketforge-yk5f.onrender.com/ (or your backend URL)
 3) Run dev server: npm run dev
 
 ## Build
@@ -20,4 +20,4 @@ React + Vite client for ticket issuance and PNR vouchers.
 
 ## Notes
 - Uses React Router and Axios.
-- Update VITE_API_BASE_URL to the deployed backend (Render/other).
+- VITE_API_URL should point at the deployed backend; trailing slash is optional.
