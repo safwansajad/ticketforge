@@ -18,7 +18,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^7.0.0",
     "mongoose": "^8.0.0",
-    "puppeteer": "^22.15.0",
+    "puppeteer-core": "^22.15.0",
+    "@sparticuz/chromium": "^123.0.1",
     "qrcode": "^1.5.4"
   },
   "devDependencies": {
