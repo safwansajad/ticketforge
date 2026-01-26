@@ -69,19 +69,6 @@ exports.ticketTemplate = (ticket) => {
       text-align: right;
     }
 
-    .booking-info {
-      font-size: 11px;
-      color: #6b7280;
-      margin-bottom: 12px;
-    }
-
-    .booking-info strong {
-      display: block;
-      color: #111827;
-      font-weight: 600;
-      font-size: 12px;
-    }
-
     .pnr-box {
       background: #f3f4f6;
       padding: 12px 16px;
@@ -146,6 +133,14 @@ exports.ticketTemplate = (ticket) => {
 
     .flight-meta strong {
       color: #111827;
+    }
+
+    .airline-logo {
+      height: 28px;
+      max-width: 100px;
+      object-fit: contain;
+      margin-right: 8px;
+      vertical-align: middle;
     }
 
     .route-display {
@@ -459,6 +454,84 @@ exports.ticketTemplate = (ticket) => {
       padding-top: 16px;
       border-top: 1px solid #e5e7eb;
     }
+
+    /* PAGE BREAK FOR PRINTING */
+    .page-break {
+      page-break-before: always;
+      margin-top: 40px;
+      padding-top: 24px;
+    }
+
+    .checkin-page {
+      background: #ffffff;
+      padding: 24px;
+    }
+
+    .checkin-header {
+      text-align: center;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #e5e7eb;
+    }
+
+    .checkin-header h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #111827;
+      margin: 0 0 8px 0;
+    }
+
+    .checkin-header p {
+      font-size: 12px;
+      color: #6b7280;
+      margin: 0;
+    }
+
+    .checkin-section {
+      margin-bottom: 24px;
+    }
+
+    .checkin-section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .checkin-list {
+      margin: 0;
+      padding-left: 24px;
+      font-size: 12px;
+      color: #374151;
+      line-height: 1.8;
+    }
+
+    .checkin-list li {
+      margin-bottom: 8px;
+    }
+
+    .checkin-highlight {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 16px;
+      margin: 16px 0;
+      border-radius: 4px;
+    }
+
+    .checkin-highlight strong {
+      color: #92400e;
+      display: block;
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+
+    @media print {
+      .page-break {
+        page-break-before: always;
+      }
+    }
   </style>
 </head>
 
@@ -480,10 +553,6 @@ exports.ticketTemplate = (ticket) => {
         </div>
       </div>
       <div class="header-right">
-        <div class="booking-info">
-          <strong>Booking Reference</strong>
-          ${ticket.agency?.bookingId || 'N/A'}
-        </div>
         <div class="pnr-box">
           <div class="pnr-label">PNR Number</div>
           <div class="pnr-number">${ticket.pnr}</div>
@@ -507,6 +576,11 @@ exports.ticketTemplate = (ticket) => {
       <!-- FLIGHT SUMMARY -->
       <div class="flight-summary">
         <div class="flight-meta">
+          ${
+            ticket.airline && ticket.airline.logoUrl
+              ? `<img src="${ticket.airline.logoUrl}" class="airline-logo" alt="${ticket.airline.name}" />`
+              : ''
+          }
           <strong>${ticket.airline?.name || 'Airline'}</strong>
           <span>•</span>
           <span>Flight ${ticket.sectors[0]?.flightNumber || 'N/A'}</span>
@@ -642,18 +716,6 @@ exports.ticketTemplate = (ticket) => {
         </div>
       </div>
 
-      <!-- IMPORTANT INFORMATION -->
-      <div class="notice-box">
-        <strong>⚠ Important Check-in Information</strong>
-        <ul>
-          <li>Check-in counters open 2 hours before departure. Arrive at the airport at least 2 hours prior.</li>
-          <li>Valid government-issued photo ID required for all passengers at check-in.</li>
-          <li>For infants, date of birth certificate is mandatory.</li>
-          <li>Web check-in available 24 hours before departure at ${ticket.airline?.website || 'airline website'}.</li>
-          <li>Use your PNR (${ticket.pnr}) for all communication regarding this booking.</li>
-        </ul>
-      </div>
-
       <!-- TERMS & CONDITIONS -->
       <div class="terms-section">
         <strong>Terms & Conditions</strong>
@@ -663,10 +725,108 @@ exports.ticketTemplate = (ticket) => {
       <!-- FOOTER -->
       <div class="footer">
         <p><strong>Booking Agency:</strong> ${ticket.agency?.name || 'Travel Agency'}</p>
-        <p><strong>PNR Reference:</strong> ${ticket.pnr} | <strong>Ticket Issued:</strong> ${new Date(ticket.issuedAt).toLocaleDateString('en-US', {day: '2-digit', month: 'short', year: 'numeric'})}</p>
+        <p><strong>PNR Reference:</strong> ${ticket.pnr} | <strong>Ticket Issued:</strong> ${new Date(ticket.issuedAt || Date.now()).toLocaleDateString('en-US', {day: '2-digit', month: 'short', year: 'numeric'})}</p>
         ${ticket.remarks ? `<p><strong>Remarks:</strong> ${ticket.remarks}</p>` : ''}
         <div class="copyright">
-          © ${new Date().getFullYear()} ${ticket.agency?.name || 'Travel Agency'}. All rights reserved. | Powered by Flight Booking System
+          © ${new Date().getFullYear()} ${ticket.agency?.name || 'Travel Agency'}. All rights reserved. | Powered by TicketForge
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 2: CHECK-IN INFORMATION -->
+    <div class="page-break">
+      <div class="checkin-page">
+        <div class="checkin-header">
+          <h2>✈ Check-in & Travel Information</h2>
+          <p>PNR: <strong>${ticket.pnr}</strong> | ${ticket.airline?.name || 'Airline'} | Flight ${ticket.sectors[0]?.flightNumber || 'N/A'}</p>
+        </div>
+
+        <!-- Web Check-in -->
+        <div class="checkin-section">
+          <div class="checkin-section-title">🌐 Web Check-in</div>
+          <ul class="checkin-list">
+            <li>Web check-in opens <strong>24 hours before departure</strong> on the airline's website or mobile app</li>
+            <li>Visit: ${ticket.airline?.website || 'airline website'}</li>
+            <li>Use your PNR <strong>${ticket.pnr}</strong> for online check-in</li>
+            <li>Download your boarding pass after completing web check-in</li>
+            <li>Web check-in saves time at the airport and allows seat selection</li>
+          </ul>
+        </div>
+
+        <!-- Airport Check-in -->
+        <div class="checkin-section">
+          <div class="checkin-section-title">🏢 Airport Check-in</div>
+          <ul class="checkin-list">
+            <li>Check-in counters open <strong>2-3 hours before departure</strong></li>
+            <li>Arrive at the airport at least <strong>2 hours prior</strong> for domestic flights</li>
+            <li>For international flights, arrive <strong>3 hours before departure</strong></li>
+            <li>Check-in closes <strong>45-60 minutes before departure</strong> (varies by airline)</li>
+            <li>Have your PNR and valid photo ID ready at the counter</li>
+          </ul>
+        </div>
+
+        <!-- Required Documents -->
+        <div class="checkin-section">
+          <div class="checkin-section-title">📋 Required Documents</div>
+          <ul class="checkin-list">
+            <li><strong>Valid Government-issued Photo ID</strong> (Aadhaar, Passport, Driving License, Voter ID)</li>
+            <li>For domestic flights within India: Original photo ID card is mandatory</li>
+            <li>For international flights: Valid passport with minimum 6 months validity</li>
+            <li>For infants: Birth certificate or passport is mandatory</li>
+            <li>Student ID alone is not acceptable as valid identification</li>
+          </ul>
+        </div>
+
+        <!-- Baggage Guidelines -->
+        <div class="checkin-section">
+          <div class="checkin-section-title">🧳 Baggage Guidelines</div>
+          <ul class="checkin-list">
+            <li>Check-in Baggage: <strong>${ticket.baggage?.checkin || '15 KG'}</strong> per person</li>
+            <li>Cabin/Hand Baggage: <strong>${ticket.baggage?.cabin || '7 KG'}</strong> per person</li>
+            <li>Excess baggage charges apply for weight beyond allowance</li>
+            <li>Liquids in cabin baggage must be in containers ≤ 100ml, packed in transparent bag</li>
+            <li>Prohibited items: Sharp objects, flammables, explosives, liquids >100ml in cabin</li>
+            <li>Check airline website for complete list of restricted items</li>
+          </ul>
+        </div>
+
+        <!-- Security & Immigration -->
+        <div class="checkin-section">
+          <div class="checkin-section-title">🛂 Security & Immigration</div>
+          <ul class="checkin-list">
+            <li>Allow sufficient time for security check and immigration clearance</li>
+            <li>Keep boarding pass, ID, and travel documents easily accessible</li>
+            <li>Remove laptops, large electronics, and liquids for separate screening</li>
+            <li>Cooperate with security personnel and follow all instructions</li>
+            <li>Report any unattended baggage or suspicious activity immediately</li>
+          </ul>
+        </div>
+
+        <!-- Important Notice -->
+        <div class="checkin-highlight">
+          <strong>⚠ Important Notice</strong>
+          <ul class="checkin-list" style="margin-top: 8px;">
+            <li>Airlines reserve the right to deny boarding if passenger arrives late or documentation is incomplete</li>
+            <li>This ticket is non-transferable. Name changes are not permitted after booking</li>
+            <li>Reconfirm your flight 24 hours before departure, especially during peak travel seasons</li>
+            <li>For any changes, cancellations, or queries, contact <strong>${ticket.agency?.name || 'your travel agency'}</strong></li>
+            <li>Keep this ticket and all travel documents safe throughout your journey</li>
+          </ul>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="checkin-section">
+          <div class="checkin-section-title">📞 Need Help?</div>
+          <ul class="checkin-list">
+            <li><strong>Agency:</strong> ${ticket.agency?.name || 'Travel Agency'} | ${ticket.agency?.phone || 'Contact Number'}</li>
+            <li><strong>Email:</strong> ${ticket.agency?.email || 'agency@email.com'}</li>
+            <li><strong>Airline Customer Care:</strong> Check airline website for 24/7 helpline</li>
+            <li><strong>Emergency:</strong> Contact your agency or airline immediately for flight changes</li>
+          </ul>
+        </div>
+
+        <div class="copyright" style="margin-top: 32px;">
+          Safe travels! Have a pleasant journey. | Powered by TicketForge
         </div>
       </div>
     </div>
