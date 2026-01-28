@@ -422,7 +422,7 @@ exports.ticketTemplate = (ticket) => {
       background: #f9fafb;
       padding: 16px;
       border-radius: 6px;
-      margin: 20px 0;
+      margin: 20px 0 16px;
       font-size: 10px;
       color: #6b7280;
       line-height: 1.6;
@@ -437,8 +437,8 @@ exports.ticketTemplate = (ticket) => {
 
     /* FOOTER */
     .footer {
-      margin-top: 24px;
-      padding-top: 20px;
+      margin-top: 16px;
+      padding-top: 16px;
       border-top: 2px solid #e5e7eb;
       font-size: 10px;
       color: #6b7280;
@@ -453,16 +453,16 @@ exports.ticketTemplate = (ticket) => {
       text-align: center;
       font-size: 10px;
       color: #9ca3af;
-      margin-top: 16px;
-      padding-top: 16px;
+      margin-top: 12px;
+      padding-top: 12px;
       border-top: 1px solid #e5e7eb;
     }
 
-    /* PAGE BREAK FOR PRINTING */
+    /* PAGE BREAK FOR PRINTING - FIXED */
     .page-break {
       page-break-before: always;
-      margin-top: 40px;
-      padding-top: 24px;
+      margin-top: 0;
+      padding-top: 0;
     }
 
     .checkin-page {
@@ -531,8 +531,20 @@ exports.ticketTemplate = (ticket) => {
     }
 
     @media print {
+      body {
+        padding: 0;
+        background: white;
+      }
+      
       .page-break {
         page-break-before: always;
+        margin-top: 0;
+        padding-top: 0;
+      }
+      
+      .container {
+        box-shadow: none;
+        max-width: 100%;
       }
     }
   </style>
