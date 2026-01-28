@@ -102,7 +102,7 @@ exports.downloadTicketPDF = async (req, res) => {
       })
     }
 
-    const barcodeImage = await generatePNRBarcode(ticket.pnr)
+    const barcodeImage = await generatePNRBarcode(ticket)
 
     const html = ticketTemplate({
       ...ticket.toObject(),
