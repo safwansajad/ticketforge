@@ -180,11 +180,13 @@ exports.ticketTemplate = (ticket) => {
       text-align: center;
       position: relative;
       padding: 8px 0;
+      min-width: 150px;
     }
 
     .route-line {
       border-top: 2px solid #e5e7eb;
       position: relative;
+      margin-bottom: 24px;
     }
 
     .route-icon {
@@ -201,8 +203,9 @@ exports.ticketTemplate = (ticket) => {
     .route-duration {
       font-size: 11px;
       color: #6b7280;
-      margin-top: 8px;
+      margin-top: 0;
       font-weight: 500;
+      position: relative;
     }
 
     /* FLIGHT DETAILS GRID */
