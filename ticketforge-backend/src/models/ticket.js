@@ -43,6 +43,11 @@ airline: {
     checkin: String
   },
 
+  contact: {
+    email: String,
+    phone: String
+  },
+
   ticketType: {
     type: String,
     enum: ['SERIES_FARE', 'NORMAL'],

@@ -680,11 +680,7 @@ exports.ticketTemplate = (ticket) => {
             <span class="info-label">Phone</span>
             <span class="info-value">${ticket.contact?.phone || 'N/A'}</span>
           </div>
-          <div class="info-row">
-            <span class="info-label">Emergency Contact</span>
-            <span class="info-value">${ticket.contact?.emergency || 'N/A'}</span>
         </div>
-      </div>
 
         <div class="info-box">
           <div class="info-box-title">Fare Summary</div>

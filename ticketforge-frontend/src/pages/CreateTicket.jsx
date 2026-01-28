@@ -22,6 +22,10 @@ export default function CreateTicket() {
     passengers: [
       { title: 'Mr', firstName: '', lastName: '', type: 'ADT' }
     ],
+    contact: {
+      email: '',
+      phone: ''
+    },
     fare: {
       base: '',
       tax: '',
@@ -106,6 +110,10 @@ export default function CreateTicket() {
           }
         ],
         passengers: ticket.passengers,
+        contact: {
+          email: ticket.contact.email,
+          phone: ticket.contact.phone
+        },
         fare: {
           base,
           tax,
@@ -281,6 +289,44 @@ export default function CreateTicket() {
                 className="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-800 font-medium focus:outline-none focus:ring-4 focus:ring-purple-200 focus:border-purple-400 transition-all"
                 value={ticket.arrivalTime}
                 onChange={(e) => handleChange('arrivalTime', e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Contact Information Card */}
+        <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-xl">
+          <div className="flex items-center gap-2 mb-6">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h2 className="text-xl font-bold text-gray-800">Contact Information</h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-5">
+            {/* Email */}
+            <div className="group">
+              <label className="block text-xs font-semibold text-gray-600 mb-2 uppercase tracking-wider">Email Address</label>
+              <input
+                type="email"
+                className="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-800 font-medium focus:outline-none focus:ring-4 focus:ring-blue-200 focus:border-blue-400 transition-all placeholder:text-gray-400"
+                placeholder="passenger@example.com"
+                value={ticket.contact.email}
+                onChange={(e) => setTicket({ ...ticket, contact: { ...ticket.contact, email: e.target.value } })}
+              />
+            </div>
+
+            {/* Phone */}
+            <div className="group">
+              <label className="block text-xs font-semibold text-gray-600 mb-2 uppercase tracking-wider">Phone Number</label>
+              <input
+                type="tel"
+                className="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-800 font-medium focus:outline-none focus:ring-4 focus:ring-blue-200 focus:border-blue-400 transition-all placeholder:text-gray-400"
+                placeholder="+91 98765 43210"
+                value={ticket.contact.phone}
+                onChange={(e) => setTicket({ ...ticket, contact: { ...ticket.contact, phone: e.target.value } })}
               />
             </div>
           </div>
