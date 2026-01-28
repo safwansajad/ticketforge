@@ -112,13 +112,13 @@ exports.ticketTemplate = (ticket) => {
 
     /* CONTENT AREA */
     .content {
-      padding: 24px;
+      padding: 16px 24px;
     }
 
     /* FLIGHT ROUTE */
     .flight-summary {
-      margin-bottom: 24px;
-      padding-bottom: 20px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
       border-bottom: 1px solid #e5e7eb;
     }
 
@@ -364,7 +364,7 @@ exports.ticketTemplate = (ticket) => {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 12px;
-      margin-bottom: 24px;
+      margin-bottom: 12px;
     }
 
     .baggage-item {
@@ -420,12 +420,12 @@ exports.ticketTemplate = (ticket) => {
     /* TERMS */
     .terms-section {
       background: #f9fafb;
-      padding: 16px;
+      padding: 12px 16px;
       border-radius: 6px;
-      margin: 20px 0 16px;
+      margin: 12px 0 12px;
       font-size: 10px;
       color: #6b7280;
-      line-height: 1.6;
+      line-height: 1.5;
     }
 
     .terms-section strong {
@@ -437,12 +437,12 @@ exports.ticketTemplate = (ticket) => {
 
     /* FOOTER */
     .footer {
-      margin-top: 16px;
-      padding-top: 16px;
+      margin-top: 12px;
+      padding-top: 12px;
       border-top: 2px solid #e5e7eb;
-      font-size: 10px;
+      font-size: 9px;
       color: #6b7280;
-      line-height: 1.6;
+      line-height: 1.5;
     }
 
     .footer p {
@@ -467,13 +467,13 @@ exports.ticketTemplate = (ticket) => {
 
     .checkin-page {
       background: #ffffff;
-      padding: 24px;
+      padding: 16px 24px;
     }
 
     .checkin-header {
       text-align: center;
-      margin-bottom: 32px;
-      padding-bottom: 20px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
       border-bottom: 2px solid #e5e7eb;
     }
 
@@ -491,7 +491,7 @@ exports.ticketTemplate = (ticket) => {
     }
 
     .checkin-section {
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
 
     .checkin-section-title {
