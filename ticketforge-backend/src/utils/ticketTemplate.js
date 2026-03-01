@@ -607,10 +607,10 @@ exports.ticketTemplate = (ticket) => {
           <div class="route-point">
             <div class="route-code">${ticket.sectors[0]?.from || 'N/A'}</div>
             <div class="route-time">
-              ${ticket.sectors[0] ? new Date(ticket.sectors[0].departureTime).toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: true}) : ''}
+              ${ticket.sectors[0] ? new Date(ticket.sectors[0].departureTime).toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'UTC'}) : ''}
             </div>
             <div class="route-date">
-              ${ticket.sectors[0] ? new Date(ticket.sectors[0].departureTime).toLocaleDateString('en-US', {day: '2-digit', month: 'short', year: 'numeric'}) : ''}
+              ${ticket.sectors[0] ? new Date(ticket.sectors[0].departureTime).toLocaleDateString('en-US', {day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC'}) : ''}
             </div>
           </div>
 
@@ -629,10 +629,10 @@ exports.ticketTemplate = (ticket) => {
           <div class="route-point">
             <div class="route-code">${ticket.sectors[ticket.sectors.length - 1]?.to || 'N/A'}</div>
             <div class="route-time">
-              ${ticket.sectors[ticket.sectors.length - 1] ? new Date(ticket.sectors[ticket.sectors.length - 1].arrivalTime).toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: true}) : ''}
+              ${ticket.sectors[ticket.sectors.length - 1] ? new Date(ticket.sectors[ticket.sectors.length - 1].arrivalTime).toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'UTC'}) : ''}
             </div>
             <div class="route-date">
-              ${ticket.sectors[ticket.sectors.length - 1] ? new Date(ticket.sectors[ticket.sectors.length - 1].arrivalTime).toLocaleDateString('en-US', {day: '2-digit', month: 'short', year: 'numeric'}) : ''}
+              ${ticket.sectors[ticket.sectors.length - 1] ? new Date(ticket.sectors[ticket.sectors.length - 1].arrivalTime).toLocaleDateString('en-US', {day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC'}) : ''}
             </div>
           </div>
         </div>

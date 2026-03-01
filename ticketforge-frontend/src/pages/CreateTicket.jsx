@@ -105,8 +105,8 @@ export default function CreateTicket() {
             from: ticket.from,
             to: ticket.to,
             flightNumber: ticket.flightNumber,
-            departureTime: new Date(ticket.departureTime).toISOString(),
-            arrivalTime: new Date(ticket.arrivalTime).toISOString()
+            departureTime: ticket.departureTime + ':00.000Z',
+            arrivalTime: ticket.arrivalTime + ':00.000Z'
           }
         ],
         passengers: ticket.passengers,
